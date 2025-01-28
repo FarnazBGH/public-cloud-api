@@ -1,0 +1,9 @@
+# IDE configs
+.vscode/
+.idea/
+
+# Binaries for programs, plugins and rest
+bin/
+*.tgz
+*.swp
+*.swo
