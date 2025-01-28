@@ -14,7 +14,7 @@ func ListInstances(args []string) error {
 	apiKey, apiHost := util.LoadEnv()
 
 	// Define flags for command-line arguments
-	listInstaneCmd := flag.NewFlagSet("listinstances", flag.ExitOnError)
+	listInstaneCmd := flag.NewFlagSet("instance list", flag.ExitOnError)
 	instanceID := listInstaneCmd.String("id", "", "Instance ID to fetch details for (optional)")
 
 	// Parse the flags for the "listinstances" command

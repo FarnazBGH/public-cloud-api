@@ -12,7 +12,7 @@ import (
 type commandFunc func(args []string) error
 
 var commands = map[string]commandFunc{
-	"instances": handleInstances,
+	"instance": handleInstances,
 	// Future commands can be added here, e.g., "create": handleCreate,
 }
 
@@ -42,15 +42,17 @@ func main() {
 
 func handleInstances(args []string) error {
 	if len(args) < 1 {
-		return errors.New("a subcommand is required for 'instances'.\nAvailable subcommands: list")
+		return errors.New("a subcommand is required for 'instances'.\nAvailable subcommands: list, create")
 	}
 
 	// Subcommand handler for "instances"
 	switch args[0] {
 	case "list":
-		return instances.ListInstances(args[1:]) // Delegate to the ListInstances function
+		return instances.ListInstances(args[1:])
+	case "create":
+		return instances.CreateInstance(args[1:])
 	default:
-		return fmt.Errorf("unknown subcommand '%s' for 'instances'.\nAvailable subcommands: list", args[0])
+		return fmt.Errorf("unknown subcommand '%s' for 'instances'.\nAvailable subcommands: list, create", args[0])
 	}
 }
 
