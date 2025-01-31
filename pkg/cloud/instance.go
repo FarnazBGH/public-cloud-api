@@ -19,8 +19,8 @@ func ListInstances(client *Client) error {
 	return nil
 }
 
-func GetInstanceByID(client *Client, instanceID string) error {
-	instancelist, _, err := client.apiClient.PubliccloudAPI.GetInstance(client.ctx, instanceID).Execute()
+func GetInstanceByID(client *Client, instanceId string) error {
+	instancelist, _, err := client.apiClient.PubliccloudAPI.GetInstance(client.ctx, instanceId).Execute()
 	if err != nil {
 		return fmt.Errorf("error when calling PubliccloudAPI.GetInstance: %w", err)
 	}
@@ -39,5 +39,15 @@ func CreateInstance(client *Client, instanceLaunchOpts apiclient.LaunchInstanceO
 		return fmt.Errorf("error launching the instance: %w", err)
 	}
 	fmt.Printf("Instance created successfully. ID: %s and Name:%v and Region: %s   \n", instance.Id, instanceName, string(instance.Region))
+	return nil
+}
+
+func DeleteInstance(client *Client, instanceId string) error {
+	instanceTerminationReq := client.apiClient.PubliccloudAPI.TerminateInstance(client.ctx, instanceId)
+	_, err := client.apiClient.PubliccloudAPI.TerminateInstanceExecute(instanceTerminationReq)
+	if err != nil {
+		return fmt.Errorf("error terminating the instance: %w", err)
+	}
+	fmt.Printf("Instance terminated successfully. ID: %s \n", instanceId)
 	return nil
 }

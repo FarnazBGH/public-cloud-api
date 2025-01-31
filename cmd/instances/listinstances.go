@@ -15,7 +15,7 @@ func ListInstances(args []string) error {
 
 	// Define flags for command-line arguments
 	listInstaneCmd := flag.NewFlagSet("instance list", flag.ExitOnError)
-	instanceID := listInstaneCmd.String("id", "", "Instance ID to fetch details for (optional)")
+	instanceId := listInstaneCmd.String("id", "", "Instance ID to fetch details for (optional)")
 
 	// Parse the flags for the "listinstances" command
 	err := listInstaneCmd.Parse(args)
@@ -27,8 +27,8 @@ func ListInstances(args []string) error {
 	client := cloud.NewClient(apiKey, apiHost)
 
 	// If an instance ID is provided, fetch its details
-	if *instanceID != "" {
-		err := cloud.GetInstanceByID(client, *instanceID)
+	if *instanceId != "" {
+		err := cloud.GetInstanceByID(client, *instanceId)
 		if err != nil {
 			return fmt.Errorf("error fetching instance details: %w", err)
 		}

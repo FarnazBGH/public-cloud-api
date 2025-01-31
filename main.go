@@ -13,7 +13,7 @@ type commandFunc func(args []string) error
 
 var commands = map[string]commandFunc{
 	"instance": handleInstances,
-	// Future commands can be added here, e.g., "create": handleCreate,
+	// Future commands can be added here, e.g., "image": handleImages,
 }
 
 func main() {
@@ -42,7 +42,7 @@ func main() {
 
 func handleInstances(args []string) error {
 	if len(args) < 1 {
-		return errors.New("a subcommand is required for 'instances'.\nAvailable subcommands: list, create")
+		return errors.New("a subcommand is required for 'instances'.\nAvailable subcommands: list, creat, delete")
 	}
 
 	// Subcommand handler for "instances"
@@ -51,8 +51,10 @@ func handleInstances(args []string) error {
 		return instances.ListInstances(args[1:])
 	case "create":
 		return instances.CreateInstance(args[1:])
+	case "delete":
+		return instances.DeleteInstance(args[1:])
 	default:
-		return fmt.Errorf("unknown subcommand '%s' for 'instances'.\nAvailable subcommands: list, create", args[0])
+		return fmt.Errorf("unknown subcommand '%s' for 'instances'.\nAvailable subcommands: list, create, delete", args[0])
 	}
 }
 
