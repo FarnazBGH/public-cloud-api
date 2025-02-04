@@ -42,7 +42,7 @@ func main() {
 
 func handleInstances(args []string) error {
 	if len(args) < 1 {
-		return errors.New("a subcommand is required for 'instances'.\nAvailable subcommands: list, creat, delete")
+		return errors.New("a subcommand is required for 'instances'.\nAvailable subcommands: list, create, delete, update")
 	}
 
 	// Subcommand handler for "instances"
@@ -53,8 +53,10 @@ func handleInstances(args []string) error {
 		return instances.CreateInstance(args[1:])
 	case "delete":
 		return instances.DeleteInstance(args[1:])
+	case "update":
+		return instances.UpdateInstance(args[1:])
 	default:
-		return fmt.Errorf("unknown subcommand '%s' for 'instances'.\nAvailable subcommands: list, create, delete", args[0])
+		return fmt.Errorf("unknown subcommand '%s' for 'instances'.\nAvailable subcommands: list, create, delete, update", args[0])
 	}
 }
 

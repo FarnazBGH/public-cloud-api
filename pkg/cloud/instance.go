@@ -51,3 +51,21 @@ func DeleteInstance(client *Client, instanceId string) error {
 	fmt.Printf("Instance terminated successfully. ID: %s \n", instanceId)
 	return nil
 }
+
+func UpdateInstance(client *Client, instanceId string, updateInstanceOpts apiclient.UpdateInstanceOpts) error {
+	instanceUpdateReq := client.apiClient.PubliccloudAPI.UpdateInstance(client.ctx, instanceId).UpdateInstanceOpts(updateInstanceOpts)
+	instance, _, err := client.apiClient.PubliccloudAPI.UpdateInstanceExecute(instanceUpdateReq)
+	fmt.Printf("Test. instace: %v \n", instance)
+	if err != nil {
+		return fmt.Errorf("error updating the instance: %w", err)
+	}
+	fmt.Printf("Test. instace: %v \n", instance)
+
+	name := instance.GetReference()
+	// image := instance.GetImage()  this give us image so I need to do the next line
+	imageName := instance.Image.GetName()
+	state := instance.GetState()
+
+	fmt.Printf("Instance updated successfully successfully. ID: %s, Name: %s, Image: %s, state: %s \n", instanceId, name, imageName, state)
+	return nil
+}
